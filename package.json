@@ -1,0 +1,33 @@
+{
+	"name": "stylus-require",
+	"description": "Require and compile Stylus files within Node.js",
+	"license": "MIT",
+	"version": "0.1.0",
+	"author": [
+		"Elliot Chong <code+stylus-require@elliotjameschong.com>"
+	],
+	"main": "index.js",
+	"keywords": [
+		"stylus",
+		"require",
+		"templates"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ElliotChong/stylus-require.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ElliotChong/stylus-require/issues"
+	},
+	"homepage": "https://github.com/ElliotChong/stylus-require",
+	"devDependencies": {
+		"coffee-script": "^1.9.3",
+		"grunt": "^0.4.5",
+		"grunt-contrib-coffee": "^0.12.0",
+		"grunt-conventional-changelog": "^1.1.0",
+		"grunt-notify": "^0.4.1",
+		"jit-grunt": "^0.9.0",
+		"load-grunt-config": "^0.16.0",
+		"stylus": "^0.51.1"
+	}
+}
