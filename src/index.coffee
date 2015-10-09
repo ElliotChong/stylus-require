@@ -19,6 +19,9 @@ originalExtensions = {}
 # Apply Stylus operations
 stylusOperations = []
 
+# Optional transform
+transform = undefined
+
 loadFile = (p_module, p_filename) ->
 	file = fs.readFileSync(p_filename).toString()
 	styl = stylus file
@@ -29,6 +32,9 @@ loadFile = (p_module, p_filename) ->
 
 	render = deasync styl.render
 	css = render.call styl
+
+	if transform?
+		css = transform css
 
 	p_module.exports = css
 
@@ -83,3 +89,10 @@ module.exports = ->
 	registerExtensions arguments...
 
 module.exports.registerExtensions = registerExtensions
+
+Object.defineProperty module.exports, "transform",
+	enumerable: true
+	get: ->
+		transform
+	set: (p_value) ->
+		transform = p_value
