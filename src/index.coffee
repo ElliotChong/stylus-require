@@ -1,6 +1,7 @@
 stylus = require "stylus"
 path = require "path"
 fs = require "fs"
+deasync = require "deasync"
 
 # Load nib if it's available
 # TODO: Create an API for passing included options and libraries
@@ -26,7 +27,10 @@ loadFile = (p_module, p_filename) ->
 	if nib?.path?
 		styl.include nib.path
 
-	p_module.exports = styl
+	render = deasync styl.render
+	css = render.call styl
+
+	p_module.exports = css
 
 registerExtensions = (p_extensions) ->
 	if not require.extensions
@@ -75,4 +79,7 @@ registerExtensions DEFAULT_EXTENSIONS
 # stylusInstance = stylus("")
 # for operation in ["set", "include", "import", "define"]
 
-module.exports = registerExtensions
+module.exports = ->
+	registerExtensions arguments...
+
+module.exports.registerExtensions = registerExtensions
