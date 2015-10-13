@@ -2,7 +2,7 @@
 	"name": "stylus-require",
 	"description": "Require and compile Stylus files within Node.js",
 	"license": "MIT",
-	"version": "0.2.0",
+	"version": "1.0.0",
 	"author": [
 		"Elliot Chong <code+stylus-require@elliotjameschong.com>"
 	],
