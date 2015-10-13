@@ -3,11 +3,7 @@ path = require "path"
 fs = require "fs"
 deasync = require "deasync"
 
-# Load nib if it's available
 # TODO: Create an API for passing included options and libraries
-try
-	nib = require "nib"
-
 DEFAULT_EXTENSIONS = [".styl", ".stylus", ".css"]
 
 # Reset any previously registered extensions
@@ -27,8 +23,6 @@ loadFile = (p_module, p_filename) ->
 	styl = stylus file
 		.set "filename", p_filename
 
-	if nib?.path?
-		styl.include nib.path
 
 	render = deasync styl.render
 	css = render.call styl
