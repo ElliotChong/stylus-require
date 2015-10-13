@@ -3,7 +3,6 @@ path = require "path"
 fs = require "fs"
 deasync = require "deasync"
 
-# TODO: Create an API for passing included options and libraries
 DEFAULT_EXTENSIONS = [".styl", ".stylus", ".css"]
 
 # Reset any previously registered extensions
@@ -12,8 +11,8 @@ lastRegisteredExtensions = undefined
 # Save original extensions in case any are overwritten
 originalExtensions = {}
 
-# Apply Stylus operations
-stylusOperations = []
+# Expose Stylus options
+options = {}
 
 # Optional transform
 transform = undefined
@@ -21,8 +20,11 @@ transform = undefined
 loadFile = (p_module, p_filename) ->
 	file = fs.readFileSync(p_filename).toString()
 	styl = stylus file
-		.set "filename", p_filename
 
+	styl.set "filename", p_filename
+
+	for key, value of options
+		styl.set key, value
 
 	render = deasync styl.render
 	css = render.call styl
@@ -75,10 +77,6 @@ registerExtensions = (p_extensions) ->
 
 registerExtensions DEFAULT_EXTENSIONS
 
-# TODO: Proxy Stylus methods
-# stylusInstance = stylus("")
-# for operation in ["set", "include", "import", "define"]
-
 module.exports = ->
 	registerExtensions arguments...
 
@@ -90,3 +88,10 @@ Object.defineProperty module.exports, "transform",
 		transform
 	set: (p_value) ->
 		transform = p_value
+
+Object.defineProperty module.exports, "options",
+	enumerable: true
+	get: ->
+		options
+	set: (p_value) ->
+		options = p_value
